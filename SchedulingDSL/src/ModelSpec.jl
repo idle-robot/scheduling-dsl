@@ -1,5 +1,8 @@
 # Type system for strongly typed model specifications
 
+using Dates
+using DataFrames
+
 abstract type IndexSpec end
 abstract type ParameterSpec end
 abstract type DataSource end
@@ -7,11 +10,11 @@ abstract type DataSource end
 # Index specifications
 struct DateRangeIndex <: IndexSpec
     start::Date
-    end::Date
+    end_date::Date
     
-    function DateRangeIndex(start::Date, end::Date)
-        start <= end || throw(ArgumentError("Start date must be <= end date"))
-        new(start, end)
+    function DateRangeIndex(start::Date, end_date::Date)
+        start <= end_date || throw(ArgumentError("Start date must be <= end date"))
+        new(start, end_date)
     end
 end
 
@@ -89,7 +92,7 @@ function get_index_values(spec::ModelSpec, index_name::Symbol)
     index === nothing && throw(ArgumentError("Index $index_name not found"))
     
     if index isa DateRangeIndex
-        return collect(index.start:Day(1):index.end)
+        return collect(index.start:Day(1):index.end_date)
     elseif index isa ListIndex
         return index.values
     else

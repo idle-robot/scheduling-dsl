@@ -320,5 +320,6 @@ Respond with only valid JSON. No explanation or additional text.`;
 }
 
 // Export singleton instance
-export const GeminiService = new GeminiService();
-export default GeminiService;
+const geminiServiceInstance = new GeminiService();
+export { geminiServiceInstance as GeminiService };
+export default geminiServiceInstance;

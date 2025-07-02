@@ -21,7 +21,7 @@ function parse_config(config_path::String)::ModelSpec
     end
 end
 
-function parse_config_dict(config_dict::Dict)::ModelSpec
+function parse_config_dict(config_dict)::ModelSpec
     # Extract template
     template = get(config_dict, "template", "")
     if isempty(template)
@@ -75,7 +75,7 @@ function parse_config_dict(config_dict::Dict)::ModelSpec
     return spec
 end
 
-function parse_index(index_config::Dict)::IndexSpec
+function parse_index(index_config)::IndexSpec
     index_type = get(index_config, "type", "")
     
     if index_type == "date_range"
@@ -104,7 +104,7 @@ function parse_index(index_config::Dict)::IndexSpec
     end
 end
 
-function parse_parameter(param_config::Dict)::ParameterSpec
+function parse_parameter(param_config)::ParameterSpec
     param_type = get(param_config, "type", "")
     
     if param_type == "table"
@@ -157,7 +157,7 @@ function parse_parameter(param_config::Dict)::ParameterSpec
 end
 
 # Config validation functions
-function validate_config_schema(config_dict::Dict)::Bool
+function validate_config_schema(config_dict)::Bool
     required_fields = ["template"]
     
     for field in required_fields
@@ -225,7 +225,7 @@ function index_to_dict(index::IndexSpec)::Dict{String, Any}
         return Dict(
             "type" => "date_range",
             "start" => string(index.start),
-            "end" => string(index.end)
+            "end" => string(index.end_date)
         )
     elseif index isa ListIndex
         return Dict(

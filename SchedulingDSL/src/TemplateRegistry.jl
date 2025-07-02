@@ -179,7 +179,7 @@ function create_controls(spec::ModelSpec)::Vector{Dict{String, Any}}
             push!(controls, Dict(
                 "type" => "date_range",
                 "label" => titlecase(replace(string(name), "_" => " ")),
-                "default" => [string(index.start), string(index.end)],
+                "default" => [string(index.start), string(index.end_date)],
                 "maps_to" => "indexes.$(name)"
             ))
         elseif index isa ListIndex
