@@ -1,0 +1,61 @@
+template: work_scheduling
+
+indexes:
+  days:
+    type: date_range
+    start: 2025-07-01
+    end: 2025-07-30
+  candidates:
+    type: list
+    values: ["Alice", "Bob", "Carol", "David", "Emma"]
+  skills:
+    type: list
+    values: ["kitchen", "wait", "service", "cleaning"]
+  scenarios:
+    type: list
+    values: ["base", "high_demand"]
+
+parameters:
+  demand:
+    type: table
+    schema: [scenario, day, skill, value]
+    source: 
+      type: csv
+      path: "data/demand.csv"
+
+  candidate_skills:
+    type: table
+    schema: [candidate, skill, has_skill]
+    source: 
+      type: csv
+      path: "data/candidate_skills.csv"
+
+  cost_month:
+    type: dict
+    key: candidate
+    source: 
+      type: json
+      path: "data/cost_month.json"
+
+options:
+  risk_measure: cvar
+  horizon: month
+  max_daily_assignments: 2
+
+overrides:
+  constraints:
+    - name: "time_window_alice"
+      function: "time_window_constraint"
+      args:
+        candidate: "Alice"
+        start_time: 10
+        end_time: 16
+    - name: "max_consecutive_work"
+      function: "max_consecutive_days_constraint"
+      args:
+        max_consecutive: 4
+  objective:
+    - name: "cost_optimization"
+      function: "minimize_cost_objective"
+      args:
+        multiplier: 1.0

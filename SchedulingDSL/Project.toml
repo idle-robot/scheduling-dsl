@@ -1,0 +1,24 @@
+name = "SchedulingDSL"
+uuid = "12345678-1234-5678-9012-123456789012"
+authors = ["Your Name <your.email@example.com>"]
+version = "0.1.0"
+
+[deps]
+JuMP = "4076af6c-e467-56ae-b986-b466b2749572"
+HiGHS = "87dc4568-4c63-4d18-b0c0-bb2238e4078b"
+DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
+CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
+JSON3 = "0f8b85d8-7281-11e9-16c2-39a750bddbf1"
+YAML = "ddb6d928-2868-570f-bddf-ab3f9cf99eb6"
+HTTP = "cd3eb016-35fb-5094-929b-558a96fad6f3"
+Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"
+
+[compat]
+julia = "1.6"
+JuMP = "1.0"
+HiGHS = "1.0"
+DataFrames = "1.0"
+CSV = "0.10"
+JSON3 = "1.0"
+YAML = "0.4"
+HTTP = "1.0"
